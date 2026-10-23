@@ -1,19 +1,59 @@
-# APIREST
--Railway
-Crear una base de datos MySql en Railway
-create table usuarios (id int(10) not null auto_increment,nombre varchar(30) default null,apellido varchar(30) default null, direccion varchar(30) default null, primary key(id));
+# API REST de usuarios (Node.js + Express + MySQL)
 
-inser into usuarios(id,nombre,apellido,direccion)values(1,'nombre','apellido','direccion'),(2,'nombre','apellido','direccion'),(3,'nombre','apellido','direccion');
+API REST para gestionar usuarios (CRUD completo) sobre una base de datos MySQL. La base de datos está alojada en **Railway** y el servicio se despliega en **Render**.
 
--Render
-Crear un despliegue de web service
-Conectar el repositorio Git
-Npm install
-Npm start
+## Tecnologías
 
-#Enviroment
-DB_DATABASE
-DB_HOST
-DB_PORT
-DB_USER
-DB_PASSWORD
+Node.js, Express, mysql2, dotenv
+
+## Endpoints
+
+| Método | Ruta | Descripción |
+|---|---|---|
+| GET | `/prueba` | Verifica la conexión con la base de datos |
+| GET | `/api/usuarios` | Lista todos los usuarios |
+| GET | `/api/usuarios/:id` | Obtiene un usuario por id |
+| POST | `/api/usuarios` | Crea un usuario (`nombre`, `apellido`, `direccion`) |
+| PATCH | `/api/usuarios/:id` | Actualiza los campos enviados de un usuario |
+| DELETE | `/api/usuarios/:id` | Elimina un usuario |
+
+Las rutas que no existen responden 404 con un mensaje en JSON.
+
+## Base de datos
+
+```sql
+CREATE TABLE usuarios (
+  id INT(10) NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(30) DEFAULT NULL,
+  apellido VARCHAR(30) DEFAULT NULL,
+  direccion VARCHAR(30) DEFAULT NULL,
+  PRIMARY KEY (id)
+);
+```
+
+## Variables de entorno
+
+Crea un archivo `.env` en la raíz:
+
+```
+PORT=5000
+DB_HOST=
+DB_PORT=3306
+DB_USER=
+DB_PASSWORD=
+DB_DATABASE=
+```
+
+## Ejecución local
+
+```bash
+npm install
+npm run dev
+```
+
+## Despliegue
+
+1. Crea una base de datos MySQL en Railway y ejecuta el script de la tabla.
+2. En Render, crea un *Web Service* conectado a este repositorio.
+3. Usa `npm install` como comando de build y `npm start` como comando de inicio.
+4. Configura las variables de entorno con los datos de conexión de Railway.
